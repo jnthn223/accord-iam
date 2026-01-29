@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: accord-iam
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/accord_iam
+    username: auth
+    password: auth
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
