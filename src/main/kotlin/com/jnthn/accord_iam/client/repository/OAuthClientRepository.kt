@@ -10,6 +10,6 @@ interface OAuthClientRepository : JpaRepository<OAuthClient, UUID> {
 
     fun findByClientIdAndProjectId(
         clientId: String,
-        projectId: UUID
+        projectId: UUID?
     ): OAuthClient?
 }

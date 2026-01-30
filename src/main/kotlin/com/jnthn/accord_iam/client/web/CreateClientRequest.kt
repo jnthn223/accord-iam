@@ -4,5 +4,7 @@ import jakarta.validation.constraints.NotBlank
 
 data class CreateClientRequest(
     @field:NotBlank
-    val name: String
+    val name: String,
+    val redirectUris: Set<String> = emptySet(),
+    val scopes: Set<String> = emptySet()
 )

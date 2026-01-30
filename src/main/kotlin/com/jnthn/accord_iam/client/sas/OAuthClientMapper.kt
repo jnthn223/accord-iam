@@ -17,7 +17,9 @@ fun OAuthClient.toRegisteredClient(): RegisteredClient {
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
         .redirectUri("http://localhost:3000/callback") // MVP static
         .scopes { scopes ->
-            scopes.add("openid") // optional
+            this.scopes.forEach { scope ->
+                scopes.add(scope.name)
+            }
         }
         .tokenSettings(
             TokenSettings.builder()
