@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.password.PasswordEncoder
-import java.util.UUID
 
 @Configuration
 class AccountBootstrap {
@@ -17,15 +16,15 @@ class AccountBootstrap {
         passwordEncoder: PasswordEncoder
     ) = CommandLineRunner {
 
-        if (!accountRepository.existsByEmail("admin@accord.dev")) {
+        if (!accountRepository.existsByEmail("admin@accord1.dev")) {
             val account = Account(
-                email = "admin@accord.dev",
+                email = "admin@accord1.dev",
                 password = passwordEncoder.encode("password")
             )
 
             accountRepository.save(account)
 
-            println("✅ Dev account created: admin@accord.dev / password")
+            println("✅ Dev account created: admin@accord1.dev / password")
         }
     }
 }

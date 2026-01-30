@@ -24,8 +24,7 @@ class DatabaseRegisteredClientRepository(
     }
 
     override fun findByClientId(clientId: String): RegisteredClient? {
-        val client = clientRepository.findAll()
-            .firstOrNull { it.clientId == clientId }
+        val client = clientRepository.findByClientIdWithScopes(clientId)
             ?: return null
 
         return client.toRegisteredClient()

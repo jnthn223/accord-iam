@@ -4,6 +4,7 @@ import com.jnthn.accord_iam.client.domain.OAuthClient
 import com.jnthn.accord_iam.client.repository.OAuthClientRepository
 import com.jnthn.accord_iam.client.web.CreateClientRequest
 import com.jnthn.accord_iam.project.domain.Project
+import com.jnthn.accord_iam.scope.domain.OAuthScope
 import com.jnthn.accord_iam.scope.repository.OAuthScopeRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -11,6 +12,13 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.Collections.emptySet
 import java.util.UUID
+
+data class CreatedClient(
+    val clientId: String,
+    val clientSecret: String,
+    val scopes: Set<OAuthScope> = emptySet(),
+    val createdAt: Instant,
+)
 
 
 @Service
@@ -24,7 +32,7 @@ class OAuthClientService(
     fun createClient(
         project: Project,
         request: CreateClientRequest
-    ): OAuthClient {
+    ): CreatedClient {
 
         val scopes = if (request.scopes.isEmpty()) {
             emptySet()
@@ -51,7 +59,14 @@ class OAuthClientService(
             createdAt = Instant.now()
         )
 
-        return clientRepository.save(client)
+        clientRepository.save(client)
+
+        return CreatedClient(
+            clientId = client.clientId,
+            clientSecret = rawSecret,
+            scopes = scopes,
+            createdAt = Instant.now()
+        )
     }
 
     fun getClients(project: Project): List<OAuthClient> =
