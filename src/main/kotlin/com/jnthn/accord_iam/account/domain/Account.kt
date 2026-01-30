@@ -20,7 +20,7 @@ data class Account(
     val email: String,
 
     @Column(name = "password_hash", nullable = false)
-    val password: String,
+    val password: String?,
 
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: Instant = Instant.now()

@@ -10,7 +10,7 @@ class AccountUserDetails(
 
     override fun getUsername(): String = account.email
 
-    override fun getPassword(): String = account.password
+    override fun getPassword(): String? = account.password
 
     override fun getAuthorities(): Collection<GrantedAuthority> =
         emptyList() // no roles yet
