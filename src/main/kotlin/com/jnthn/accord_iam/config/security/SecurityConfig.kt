@@ -2,8 +2,8 @@ package com.jnthn.accord_iam.config.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
@@ -16,7 +16,8 @@ class SecurityConfig {
         BCryptPasswordEncoder()
 
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    @Order(2)
+    fun adminSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { csrf ->
                 csrf.disable()
