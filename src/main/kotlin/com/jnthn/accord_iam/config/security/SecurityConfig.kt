@@ -18,17 +18,21 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .csrf { csrf ->
+                csrf.disable()
+            }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers(
-                        "/login",
-                        "/error"
-                    ).permitAll()
+                    .requestMatchers("/login", "/error").permitAll()
                     .requestMatchers("/api/admin/**").authenticated()
                     .anyRequest().permitAll()
             }
-            .formLogin(withDefaults())
-            .logout(withDefaults())
+            .formLogin {
+                it.successHandler { _, response, _ ->
+                    response.status = 200
+                }
+            }
+            .logout { }
 
         return http.build()
     }
