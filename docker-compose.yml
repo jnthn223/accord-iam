@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: accord-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: accord_iam
+      POSTGRES_USER: auth
+      POSTGRES_PASSWORD: auth
+    volumes:
+      - accord_pg_data:/var/lib/postgresql/data
+
+volumes:
+  accord_pg_data:

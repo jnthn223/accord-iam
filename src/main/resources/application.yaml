@@ -3,7 +3,7 @@ spring:
     name: accord-iam
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/accord_iam
+    url: jdbc:postgresql://localhost:5433/accord_iam
     username: auth
     password: auth
   jpa:
