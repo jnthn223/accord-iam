@@ -6,8 +6,25 @@ spring:
     url: jdbc:postgresql://localhost:5433/accord_iam
     username: auth
     password: auth
+
   jpa:
     hibernate:
       ddl-auto: none
+
   flyway:
     enabled: true
+
+  security:
+    oauth2:
+      authorizationserver:
+        # This is the canonical issuer of tokens
+        issuer: http://localhost:8080
+
+      resourceserver:
+        jwt:
+          # Resource server trusts tokens issued by THIS issuer
+          issuer-uri: http://localhost:8080
+
+server:
+  port: 8080
+  forward-headers-strategy: framework
