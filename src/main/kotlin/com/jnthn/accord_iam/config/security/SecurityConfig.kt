@@ -19,6 +19,7 @@ class SecurityConfig {
     @Order(2)
     fun adminSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .securityMatcher("/api/admin/**", "/login", "/logout", "/error")
             .csrf { csrf ->
                 csrf.disable()
             }

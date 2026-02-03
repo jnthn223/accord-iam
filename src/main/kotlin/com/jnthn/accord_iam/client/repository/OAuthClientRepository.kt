@@ -29,4 +29,16 @@ interface OAuthClientRepository : JpaRepository<OAuthClient, UUID> {
     fun findByClientIdWithScopes(
         @Param("clientId") clientId: String
     ): OAuthClient?
+
+    @Query(
+        value = """
+        SELECT *
+        FROM oauth_clients
+        WHERE project_id = :projectId
+          AND metadata ->> 'playground' = 'true'
+        LIMIT 1
+    """,
+        nativeQuery = true
+    )
+    fun findPlaygroundClient(projectId: UUID?): OAuthClient?
 }

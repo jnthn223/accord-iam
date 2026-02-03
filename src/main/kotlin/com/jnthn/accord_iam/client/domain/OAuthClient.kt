@@ -1,8 +1,10 @@
 package com.jnthn.accord_iam.client.domain
 
+import com.jnthn.accord_iam.config.persistence.converter.JsonMapConverter
 import com.jnthn.accord_iam.project.domain.Project
 import com.jnthn.accord_iam.scope.domain.OAuthScope
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -13,6 +15,8 @@ import jakarta.persistence.ManyToMany
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import java.time.Instant
 import java.util.UUID
 
@@ -46,6 +50,11 @@ data class OAuthClient(
         inverseJoinColumns = [JoinColumn(name = "scope_id")]
     )
     val scopes: Set<OAuthScope> = emptySet(),
+
+    @Convert(converter = JsonMapConverter::class)
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb", nullable = false)
+    val metadata: Map<String, Any> = emptyMap(),
 
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: Instant = Instant.now()

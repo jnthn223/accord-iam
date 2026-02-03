@@ -29,6 +29,10 @@ class JwtTokenCustomizer(
             // Your domain-specific claims
             claim("project_id", client.project.id.toString())
 
+            if (client.metadata["playground"] == true) {
+                claim("playground", true)
+            }
+
         }
     }
 }
