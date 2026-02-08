@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 @Configuration
 class AuthorizationServerConfig {
-
+    // TODO: Configure AUthorization Code Flow
     @Bean
     @Order(1)
     fun authorizationServerSecurityFilterChain(
