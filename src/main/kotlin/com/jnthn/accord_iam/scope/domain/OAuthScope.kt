@@ -14,6 +14,8 @@ import java.util.UUID
 )
 data class OAuthScope(
 
+    // TODO: Revamp scopes database
+
     @Id
     @GeneratedValue
     val id: UUID? = null,
